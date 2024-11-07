@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Blackjack</title>
-    <link rel="stylesheet" href="styles.css">
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>BlackJack Game</title>
+ <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Blackjack Game</h1>
-    <div id="game">
-        <div id="dealer-hand" class="hand"></div>
-        <div id="player-hand" class="hand"></div>
-        <div id="controls">
-            <button id="hit">Hit</button>
-            <button id="stand">Stand</button>
-            <button id="restart">Restart</button>
-        </div>
-        <div id="message"></div>
-    </div>
-    <script src="script.js"></script>
+ <h1>BlackJack</h1>
+
+ <p id="message-el">Want to play a round?</p>
+
+ <p id="cards-el">Cards:</p>
+
+ <p id="sum-el">Sum:</p>
+
+ <button id="start">Start Game</button>
+
+ <button id="new">New Card</button>
+
+ <p id="player-el"></p>
+ 
+ <script src="./main.js"></script>
 </body>
 </html>
