@@ -1,41 +1,106 @@
-let playerHand = [];
-let dealerHand = [];
-const deck = createDeck();
-let playerScore = 0;
-let dealerScore = 0;
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Carter+One&family=Cookie&family=Island+Moments&family=PT+Serif+Caption&family=Playfair+Display+SC:wght@400;700;900&family=Red+Hat+Display:wght@700;900&family=Roboto+Mono&display=swap');
 
-function createDeck() {
-    const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
-    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
-    const deck = [];
-    for (let suit of suits) {
-        for (let value of values) {
-            deck.push({ suit, value });
-        }
-    }
-    return deck.sort(() => Math.random() - 0.5);
+/* UNIVERSAL BODY STYLING */
+*{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
 }
 
-function dealCard(hand) {
-    hand.push(deck.pop());
+/*  BODY STYLING */
+body{
+ margin-top: 15px;
+ font-family: 'Roboto Mono', monospace;
+ text-align: center;
+ color: white;
+ background-color: rgb(5, 51, 5);
 }
 
-function calculateScore(hand) {
-    let score = 0;
-    let aces = 0;
-    for (let card of hand) {
-        if (['Jack', 'Queen', 'King'].includes(card.value)) {
-            score += 10;
-        } else if (card.value === 'Ace') {
-            aces += 1;
-            score += 11; // Initially count Ace as 11
-        } else {
-            score += parseInt(card.value);
-        }
-    }
-    while (score > 21 && aces) {
-        score -= 10; // Convert Ace from 11 to 1
-        aces -= 1;
+/* BODY H1 STYLING */
+h1{
+ color: goldenrod;
+ font-size: 50px;
+ letter-spacing: 2px;
+ text-decoration: underline;
+ margin-bottom: 20px;
+ cursor: pointer;
+}
+
+/* DISPLAY MESSAGE STYLING */
+#message-el{
+ font-style: italic;
+ font-size: 30px;
+ margin-bottom: 20px;
+}
+
+/* PARAGRAPH MESSAGE STYLING */
+p{
+ font-size: 30px;
+ margin-bottom: 20px;
+}
+
+/* BUTTONS STYLING */
+button{
+ padding: 10px;
+ border: none;
+ color: rgb(5, 51, 5);
+ font-weight: bold;
+ width: 200px;
+ font-size: 25px;
+ border-radius: 3px;
+ text-transform: uppercase;
+ background-color: goldenrod;
+ text-align: center;
+ margin: auto;
+ display: flex;
+ justify-content: center;
+ margin-bottom: 6px;
+ margin-top: 6px;
+ font-family: 'Roboto Mono', monospace;
+}
+
+button:hover{
+ transition: 0.3s ease-in-out;
+ background-color: #b18005;
+}
+
+/* PLAYER MESSAGE STYLING */
+#player-el{
+ margin-top: 20px;
+ font-weight: bold;
+}
+
+/* MEDIA QUERY STYLING STARTS HERE */
+@media screen and (max-width: 300px) {
+ body{
+  margin-top: 30px;
+ }
+
+ h1{
+  font-size: 40px;
+  letter-spacing: 2px;
+  text-decoration: underline;
+  margin-bottom: 20px;
+ }
+ 
+ #message-el{
+  font-size: 16px;
+ }
+
+ p{
+  font-size: 17px;
+ }
+
+ button{
+  padding: 5px;
+  width: 120px;
+  font-size: 20px;
+ }
+ 
+ #player-el{
+  font-size: 15px;
+ }
+}
     }
     return score;
 }
