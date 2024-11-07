@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Blackjack Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+  <div id='cash'>Cash: $1000</div>
+  <div id='bet'>Bet: $100</div>
+
+  <div class='changeBet clearfix'>
+    <div id='subBet' class='lil button'>-</div>
+    <div id='placeBet' class='big button'>Place Bet</div>
+    <div id='addBet' class='lil button last'>+</div>
+  </div>
+
+  <div class='hide buttons clearfix'>
+    <div id='playHit' class='button'>Hit</div>
+    <div id='playStay' class='button last'>Stay</div>
+  </div>
+
+  <div class='fullbar clearfix'>
+    <div id='reset' class='hide button'>Next Round</div>
+    <div id='startover' class='hide button'>Start Over</div>
+  </div>
+
+  <div class='title clearfix'>
+    <div class='player'>Player:</div>
+    <div class='computer'>Computer:</div>
+  </div>
+
+  <div id='gameBoard' class='clearfix'>
+    <div class='player-section card-section'></div><div class='computer-section card-section'></div>
+  </div>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
