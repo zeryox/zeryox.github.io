@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Russian Roulette Game</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+    <title>Simple Blackjack</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Russian Roulette Game</h1>
-    <p>Click the button to pull the trigger!</p>
-    <button onclick="playGame()">Pull the Trigger</button>
-    <div id="result"></div>
-
-    <script src="script.js"></script> <!-- Link to the JavaScript file -->
+    <h1>Blackjack Game</h1>
+    <div id="game">
+        <div id="dealer-hand" class="hand"></div>
+        <div id="player-hand" class="hand"></div>
+        <div id="controls">
+            <button id="hit">Hit</button>
+            <button id="stand">Stand</button>
+            <button id="restart">Restart</button>
+        </div>
+        <div id="message"></div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
