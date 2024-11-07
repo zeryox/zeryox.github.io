@@ -1,156 +1,100 @@
-@import url('https://fonts.googleapis.com/css2?family=Acme&family=Carter+One&family=Cookie&family=Island+Moments&family=PT+Serif+Caption&family=Playfair+Display+SC:wght@400;700;900&family=Red+Hat+Display:wght@700;900&family=Roboto+Mono&display=swap');
+let cards = [];
 
-/* UNIVERSAL BODY STYLING */
-*{
- margin: 0;
- padding: 0;
- box-sizing: border-box;
-}
+let sum = 0;
 
-/*  BODY STYLING */
-body{
- margin-top: 15px;
- font-family: 'Roboto Mono', monospace;
- text-align: center;
- color: white;
- background-color: rgb(5, 51, 5);
-}
+let hasBlackjack = false;
 
-/* BODY H1 STYLING */
-h1{
- color: goldenrod;
- font-size: 50px;
- letter-spacing: 2px;
- text-decoration: underline;
- margin-bottom: 20px;
- cursor: pointer;
-}
+let isAlive = false;
 
-/* DISPLAY MESSAGE STYLING */
-#message-el{
- font-style: italic;
- font-size: 30px;
- margin-bottom: 20px;
-}
+let message = "";
 
-/* PARAGRAPH MESSAGE STYLING */
-p{
- font-size: 30px;
- margin-bottom: 20px;
-}
+let messageEl = document.getElementById("message-el");
 
-/* BUTTONS STYLING */
-button{
- padding: 10px;
- border: none;
- color: rgb(5, 51, 5);
- font-weight: bold;
- width: 200px;
- font-size: 25px;
- border-radius: 3px;
- text-transform: uppercase;
- background-color: goldenrod;
- text-align: center;
- margin: auto;
- display: flex;
- justify-content: center;
- margin-bottom: 6px;
- margin-top: 6px;
- font-family: 'Roboto Mono', monospace;
-}
+let sumEl = document.getElementById("sum-el");
 
-button:hover{
- transition: 0.3s ease-in-out;
- background-color: #b18005;
-}
+let cardsEl = document.getElementById("cards-el");
 
-/* PLAYER MESSAGE STYLING */
-#player-el{
- margin-top: 20px;
- font-weight: bold;
-}
+let startEl = document.getElementById("start");
 
-/* MEDIA QUERY STYLING STARTS HERE */
-@media screen and (max-width: 300px) {
- body{
-  margin-top: 30px;
- }
+let newEl = document.getElementById("new");
 
- h1{
-  font-size: 40px;
-  letter-spacing: 2px;
-  text-decoration: underline;
-  margin-bottom: 20px;
- }
- 
- #message-el{
-  font-size: 16px;
- }
+let playerName = "Player";
 
- p{
-  font-size: 17px;
- }
+let playerChip = Math.floor(Math.random() * 51);
 
- button{
-  padding: 5px;
-  width: 120px;
-  font-size: 20px;
- }
- 
- #player-el{
-  font-size: 15px;
+let playerEl = document.getElementById("player-el");
+
+playerEl.textContent = `${playerName}: $${playerChip}`;
+
+function getRandomCard() {
+ let randomNumbers = Math.floor(Math.random() * 13) + 1;
+ if (randomNumbers > 10) {
+  return 10;
+ } else if (randomNumbers === 1){
+  return 11;
+ } else{
+  return randomNumbers;
  }
 }
+
+startEl.addEventListener('click', () => {
+ isAlive = true;
+ let firstCard = getRandomCard();
+ let secondCard = getRandomCard();
+ cards = [firstCard, secondCard];
+ sum = firstCard + secondCard;
+ renderGame();
+ document.querySelector("#start").style.display = "none";
+})
+
+const resetGame = () => {
+    cards = [];
+    sum = 0;
+    hasBlackjack = false;
+    isAlive = false;
+    message = "";
+    renderGame();
+    document.querySelector("#start").style.display = "flex";
+};
+
+const renderGame = () => {
+    cardsEl.textContent = `Cards: `;
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += `${cards[i]} `;
+        if (i < cards.length - 1) {
+            cardsEl.textContent += '+ ';
+        }
     }
-    return score;
-}
-
-function updateDisplay() {
-    document.getElementById('dealer-hand').innerText = `Dealer: ${dealerHand.map(card => card.value + ' of ' + card.suit).join(', ')}`;
-    document.getElementById('player-hand').innerText = `Player: ${playerHand.map(card => card.value + ' of ' + card.suit).join(', ')}`;
-    document.getElementById('message').innerText = `Player Score: ${playerScore} | Dealer Score: ${dealerScore}`;
-}
-
-function resetGame() {
-    playerHand = [];
-    dealerHand = [];
-    playerScore = 0;
-    dealerScore = 0;
-    deck = createDeck();
-    dealCard(playerHand);
-    dealCard(dealerHand);
-    dealCard(playerHand);
-    dealCard(dealerHand);
-    playerScore = calculateScore(playerHand);
-    dealerScore = calculateScore(dealerHand);
-    updateDisplay();
-}
-
-document.getElementById('hit').addEventListener('click', () => {
-    dealCard(playerHand);
-    playerScore = calculateScore(playerHand);
-    updateDisplay();
-    if (playerScore > 21) {
-        document.getElementById('message').innerText = "You busted! Game over.";
-    }
-});
-
-document.getElementById('stand').addEventListener('click', () => {
-    while (dealerScore < 17) {
-        dealCard(dealerHand);
-        dealerScore = calculateScore(dealerHand);
-    }
-    updateDisplay();
-    if (dealerScore > 21 || playerScore > dealerScore) {
-        document.getElementById('message').innerText = "You win!";
-    } else if (playerScore < dealerScore) {
-        document.getElementById('message').innerText = "Dealer wins!";
+    sumEl.textContent = `Sum: ${sum}`;
+    if (sum < 21) {
+        message = "Do you want to draw a new card?";
+        isAlive = true;
+    } else if (sum === 21) {
+        message = "Whoo! You've got BlackJack!";
+        hasBlackjack = true;
+        isAlive = true;
+        setTimeout(() => {
+            if (confirm('Play Again?')) {
+                resetGame();
+            }
+        }, 1000);
     } else {
-        document.getElementById('message').innerText = "It's a tie!";
+        message = "You're out of the Game!";
+        isAlive = false;
+        setTimeout(() => {
+            if (confirm('Play Again?')) {
+                resetGame();
+            }
+        }, 1000);
     }
+    messageEl.textContent = message;
+};
+
+newEl.addEventListener('click', () => {
+ if(isAlive === true && hasBlackjack === false) {
+  let card = getRandomCard();
+  sum += card;
+  cards.push(card);
+  renderGame();
+ }
 });
-
-document.getElementById('restart').addEventListener('click', resetGame);
-
-// Start the game on load
-resetGame();
